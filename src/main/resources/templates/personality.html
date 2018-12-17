@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Life Appp</title>
+    <link rel="stylesheet" th:href="@{/styles.css}" />
+</head>
+<body>
+
+<h1>Personalities</h1>
+
+    <div class="form-group blu-margin">
+        <!--<select class="form-control" th:field="${operator.opeId}"  id="dropOperator">-->
+        <select class="form-control" id="dropOperator">
+            <option value="0">select personality</option>
+            <option th:each="personality : ${personalities}"
+                    th:value="${personality.id}" th:text="${personality.name}"></option>
+        </select>
+    </div>
+
+
+<br />
+<div>
+    <a href="/">Done</a>
+</div>
+
+
+</body>
+</html>

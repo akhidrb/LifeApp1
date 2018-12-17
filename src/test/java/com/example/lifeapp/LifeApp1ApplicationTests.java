@@ -1,4 +1,4 @@
-package com.example.LifeApp1;
+package com.example.lifeapp;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
