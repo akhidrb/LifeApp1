@@ -1,9 +1,14 @@
 package com.example.lifeapp.web;
 
 
-import com.example.lifeapp.models.Personality;
-import com.example.lifeapp.repositories.PersonalityRep;
+import com.example.lifeapp.models.Occupation;
+import com.example.lifeapp.models.PersonalityType;
+import com.example.lifeapp.repositories.OccupationRep;
+import com.example.lifeapp.repositories.PersonalityTypeRep;
+import com.example.lifeapp.web.Utils.PersonalityUtils;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,22 +20,32 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/personality")
-public class PersonalityController {
+public class PersonalityController implements InitializingBean {
 
-    private final PersonalityRep personalityRep;
+    private final PersonalityTypeRep personalityTypeRep;
+    private final OccupationRep occupationRep;
+
+    private PersonalityUtils personalityUtils;
 
     @Autowired
-    public PersonalityController(PersonalityRep personalityRep) {
-        this.personalityRep = personalityRep;
+    public PersonalityController(PersonalityTypeRep personalityTypeRep,
+                                 OccupationRep occupationRep) {
+        this.personalityTypeRep = personalityTypeRep;
+        this.occupationRep = occupationRep;
     }
 
     @GetMapping
     public String showPersonalities(Model model) {
-        List<Personality> personalitiesList = new ArrayList<>();
-        personalityRep.findAll().forEach(musclegroup -> personalitiesList.add(musclegroup));
-        model.addAttribute("personalities", personalitiesList.stream().collect(Collectors.toList()));
+        model.addAttribute("personalities",
+                personalityUtils.addPersonalitiesToModel(personalityTypeRep));
+        model.addAttribute("occupations",
+                personalityUtils.addOccupationsToModel(occupationRep));
         return "personality";
     }
 
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        personalityUtils = new PersonalityUtils();
+    }
 
 }

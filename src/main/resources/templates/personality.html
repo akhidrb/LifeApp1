@@ -11,10 +11,18 @@
 
     <div class="form-group blu-margin">
         <!--<select class="form-control" th:field="${operator.opeId}"  id="dropOperator">-->
-        <select class="form-control" id="dropOperator">
-            <option value="0">select personality</option>
-            <option th:each="personality : ${personalities}"
-                    th:value="${personality.id}" th:text="${personality.name}"></option>
+        <select class="form-control">
+            <option value="0">select personalityType</option>
+            <option th:each="personalityType : ${personalities}"
+                    th:value="${personalityType.id}" th:text="${personalityType.name}"></option>
+        </select>
+        <br />
+        <br />
+        <select class="form-control">
+            <option value="0">select occupation</option>
+            <option th:each="occupation : ${occupations}"
+                    th:value="${occupation.id}" th:text="${occupation.name}">
+            </option>
         </select>
     </div>
 
